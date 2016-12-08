@@ -1,87 +1,95 @@
 var donateUrl = "https://don.partipirate.org";
 var joinUrl = "https://adhesion.partipirate.org";
 
+function clickDonateHandler(event) {
+	$("#form #type").val("donate");
+	$("#form .step-one").slideUp();
+}
+
+function clickJoinHandler(event) {
+	$("#form #type").val("join");
+//	$("#form .step-one").slideUp(400, function() {
+//		$("#form .step-join-two").fadeIn();		
+//	});
+
+	$("#form .step-one").animate({ left: "-=2000" }, 400, function() {
+		$("#form .step-one").hide();
+		$("#form .step-join-two").fadeIn();
+	});
+}
+
+function clickJoinAmountHandler(amount) {
+	$("#form #joinAmount").val(amount);
+
+	$("#form .step-join-two").animate({ left: "-=2000" }, 400, function() {
+		$("#form .step-join-two").hide();
+		$("#form .step-join-three").fadeIn();
+	});
+}
+
+function clickJoinDonateMoreNo(event) {
+	$("#form .step-join-three").animate({ left: "-=2000" }, 400, function() {
+		$("#form .step-join-three").hide();
+		$("#form .step-join-four").fadeIn();
+	});
+}
+
+function clickJoinDonateMoreYes(event) {
+	$("#form .step-join-three-amount").fadeIn();
+}
+
+function clickJoinDonateMoreOk(event) {
+	$("#form #donateAmount").val($("#form #step-join-three-amount").val());
+
+	$("#form .step-join-three").animate({ left: "-=2000" }, 400, function() {
+		$("#form .step-join-three").hide();
+		$("#form .step-join-four").fadeIn();
+	});
+}
+
+function clickJoinSlNo(event) {
+	$("#form .step-join-four").animate({ left: "-=2000" }, 400, function() {
+		$("#form .step-join-four").hide();
+		showIdentity();
+	});
+}
+
+function clickJoinSlYes(event) {
+	$("#form .step-join-four-sl").fadeIn();
+	$("#form .step-join-four-amount").fadeIn();
+}
+
+function clickJoinSlOk(event) {
+	$("#form #slJoin").val($("#form #step-join-four-sl").val());
+	$("#form #slAmount").val($("#form #step-join-four-amount").val());
+	
+	$("#form .step-join-four").animate({ left: "-=2000" }, 400, function() {
+		$("#form .step-join-four").hide();
+		showIdentity();
+	});
+}
+
+function showIdentity() {
+	$("#form .step-identity").fadeIn();
+}
+
+function clickIdentityOk(event) {
+	$("#form .step-identity").animate({ left: "-=2000" }, 400, function() {
+		$("#form .step-identity").hide();
+		$("#form .step-disclaimer").fadeIn();
+	});
+}
+
 $(function() {
-//	function changeStatus(id, status, message) {
-//		var glyphStatus = $("#" + id + "Status");
-//
-//		glyphStatus.removeClass("otbHidden");
-//
-//		if (status == "success") {
-//			glyphStatus.removeClass("glyphicon-remove");
-//			glyphStatus.addClass("glyphicon-ok");
-//		}
-//		else {
-//			glyphStatus.removeClass("glyphicon-ok");
-//			glyphStatus.addClass("glyphicon-remove");
-//		}
-//
-//		glyphStatus.parents(".has-feedback").removeClass("has-success").removeClass("has-error").addClass("has-" + status);
-//	}
-//
-//	function check_firstname() {
-//		if ($("#firstname").val() == "") {
-//			changeStatus("firstname", "error", "");
-//			return false;
-//		}
-//		changeStatus("firstname", "success", "");
-//		return true;
-//	}
-//
-//	function check_lastname() {
-//		if ($("#lastname").val() == "") {
-//			changeStatus("lastname", "error", "");
-//			return false;
-//		}
-//		changeStatus("lastname", "success", "");
-//		return true;
-//	}
-
-//	function check_xxx() {
-//	    var mailRegExp = new RegExp("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}$");
-//
-//		if ($("#xxx").val() == "") {
-//			changeStatus("xxx", "error", "");
-//			return false;
-//		}
-//
-//		if (mailRegExp.test($("#xxx").val().toUpperCase()) === false) {
-//			changeStatus("xxx", "error", "");
-//			return false;
-//		}
-//
-//		changeStatus("xxx", "success", "");
-//		return true;
-//	}
-
-//	function check_confirmationMail() {
-//		if ($("#xxx").val() != $("#confirmationMail").val()) {
-//			changeStatus("confirmationMail", "error", "");
-//			return false;
-//		}
-//		changeStatus("confirmationMail", "success", "");
-//		return true;
-//	}
 
 	function check(form) {
 		var status = true;
-//
-//		form.find("input").each(function() {
-//
-//			if (form.find("#" + $(this).attr("id") + "Status").length) {
-//				if (!eval("check_" + $(this).attr("id") + "();")) {
-//					status = false;
-//				}
-//			}
-//		});
-//
+
 		return status;
 	}
 
 	function progressHandlingFunction(e) {
 	    if (e.lengthComputable){
-//	        $('progress').attr({value:e.loaded, max:e.total});
-//	        console.log(e.loaded / e.total);
 	    }
 	}
 
@@ -120,74 +128,21 @@ $(function() {
 	        processData: false
 	    });
 	}
+	
+	$("body").on("click", ".btn-donate", clickDonateHandler);
+	$("body").on("click", ".btn-join", clickJoinHandler);
+	$("body").on("click", ".btn-24", function() { clickJoinAmountHandler(24); });
+	$("body").on("click", ".btn-12", function() { clickJoinAmountHandler(12); });
+	$("body").on("click", ".btn-6",  function() { clickJoinAmountHandler(6); });
 
-	$("#candidateButtons button").click(function() {
-		if ($(this).hasClass("active")) {
-			$(this).removeClass("active");
-		} else {
-			$(this).addClass("active");
-		}
+	$("body").on("click", ".btn-join-donate-more-no",  clickJoinDonateMoreNo);
+	$("body").on("click", ".btn-join-donate-more-yes", clickJoinDonateMoreYes);
+	$("body").on("click", ".btn-join-donate-more-ok",  clickJoinDonateMoreOk);
 
-		var candidateValue = "";
-		var candidateSeparator = "";
+	$("body").on("click", ".btn-join-sl-no",  clickJoinSlNo);
+	$("body").on("click", ".btn-join-sl-yes", clickJoinSlYes);
+	$("body").on("click", ".btn-join-sl-ok",  clickJoinSlOk);
 
-		$(".photo-element").hide();
-
-		$("#candidateButtons button.active").each(function() {
-			candidateValue += candidateSeparator;
-
-			if ($(this).val() == "candidate") {
-				$(".photo-element").show();
-			}
-
-			candidateValue += $(this).val();
-			candidateSeparator = ",";
-		});
-
-		$("#candidateInput").val(candidateValue);
-	});
-
-	$("#sexButtons button").click(function() {
-		if (!$(this).hasClass("active")) {
-			$("#sexButtons button").removeClass("active");
-			$(this).addClass("active");
-
-			$("#sexInput").val($(this).val());
-		}
-	});
-
-	$('#confirmationMail').bind('paste', function(event) {
-		event.preventDefault();
-	});
-
-	$("#contactForm").submit(function(event) {
-		event.preventDefault();
-		submit($("#contactForm"));
-	});
-
-	$("#icandidateButton").click(function(event) {
-		event.preventDefault();
-		submit($("#contactForm"));
-	});
-
-	$(".ijoinButton").click(function(event) {
-		event.preventDefault();
-		window.location.replace(joinUrl);
-	});
-
-	$(".idonateButton").click(function(event) {
-		event.preventDefault();
-		window.location.replace(donateUrl);
-	});
-
-	$("input[type=checkbox]").click(function(event) {
-		if ($(this).attr("checked")) {
-			$(this).removeAttr("checked");
-		}
-		else {
-			$(this).attr("checked", "checked");
-		}
-	});
-
-	$(".photo-element").show();
+	$("body").on("click", ".btn-identity-ok	",  clickIdentityOk);
+	
 });
