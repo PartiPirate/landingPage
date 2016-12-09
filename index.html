@@ -17,6 +17,10 @@
     <!-- Retina Images Plugin -->
     <script src="assets/js/plugins/retina/retina.min.js"></script>
 
+	<!-- Jquery vmap Plugin -->
+	<link href="assets/css/plugins/jquery.vmap/jqvmap.css" rel="stylesheet" type="text/css" />
+
+	
     <!-- Plugin CSS -->
     <link href="assets/css/plugins/hover/hover.min.css" rel="stylesheet">
     <link href="assets/css/plugins/owl.carousel/owl.carousel.css" rel="stylesheet">
@@ -24,6 +28,7 @@
     <link href="assets/css/plugins/owl.carousel/owl.transitions.css" rel="stylesheet">
     <link href="assets/css/plugins/jquery.fs.wallpaper/jquery.fs.wallpaper.css" rel="stylesheet">
     <link href="assets/css/plugins/magnific-popup/magnific-popup.css" rel="stylesheet">
+	
 
     <!-- Spectrum CSS -->
     <!-- Note: spectrum.css is the default blue theme. To use another theme, uncomment the one you want and delete the rest, including the default spectrum.css! -->
@@ -179,24 +184,25 @@
                             <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-join-sl-yes">Oui</button></li>
                             <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-join-sl-no">Non</button></li>
                         </ul>
-
-                        <ul class="list-inline step-join-four-sl" style="display: none;">
-								<li><select tabindex="400" id="step-join-four-sl">
+						
+						<ul class="list-inline step-join-four-sl" style="display: none;">
+								<li><div id="francemap" style="width: 400px; height: 500px;"></div></li>
+								<li><select tabindex="400" id="step-join-four-sl" name="step-join-four-sl">
 										<option value=""></option>
-										<option value="alsace-champagne-ardennes-lorraine">Alsace-Champagne-Ardennes-Lorraine</option>
-										<option value="aquitaine-limousin-poitou-charente">Aquitaine-Limousin-Poitou-Charente</option>
-										<option value="auvergne-rhône-alpes">Auvergne-Rhône-Alpes</option>
-										<option value="bourgogne-franche-comté">Bourgogne-Franche-Comté</option>
-										<option value="bretagne">Bretagne</option>
-										<option value="centre-val-de-loire">Centre-Val-de-Loire</option>
-										<option value="corse">Corse</option>
-										<option value="île-de-france">Île-de-France</option>
-										<option value="languedoc-roussillon-midi-pyrénées">Languedoc-Roussillon-Midi-Pyrénées</option>
-										<option value="nord-pas-de-calais-picardie">Nord-Pas-de-Calais-Picardie</option>
-										<option value="normandie">Normandie</option>
+										<option value="Grand-Est">Alsace-Champagne-Ardennes-Lorraine</option>
+										<option value="Aquitaine-Limousin-Poitou-Charentes">Aquitaine-Limousin-Poitou-Charente</option>
+										<option value="Auvergne-Rhône-Alpes">Auvergne-Rhône-Alpes</option>
+										<option value="Bourgogne-Franche-Comté">Bourgogne-Franche-Comté</option>
+										<option value="Bretagne">Bretagne</option>
+										<option value="Centre">Centre</option>
+										<option value="Corse">Corse</option>
+										<option value="Ile-de-France">Île-de-France</option>
+										<option value="Languedoc-Roussillon-Midi-Pyrénées">Languedoc-Roussillon-Midi-Pyrénées</option>
+										<option value="Nord-Pas-de-Calais-Picardie">Nord-Pas-de-Calais-Picardie</option>
+										<option value="Normandie">Normandie</option>
 										<option value="outre-mer">Outre-Mer</option>
-										<option value="pays-de-la-loire">Pays-de-la-Loire</option>
-										<option value="provence-alpes-côte-d-azur">Provence-Alpes-Côte-d-Azur</option>
+										<option value="Pays-de-la-Loire">Pays-de-la-Loire</option>
+										<option value="Provence-Alpes-Côte-d-Azur">Provence-Alpes-Côte-d-Azur</option>
 										<option value="section expatriés">Section Expatriés</option>
 								</select></li>
 							</ul>
@@ -208,6 +214,7 @@
 					</div>
 
                     <div class="col-lg-12 text-center step-identity" style="display: none;">
+						
                         <h2>Oups, et vous êtes ? (Le pape et j'attends ma soeur)</h2>
                         <hr class="primary">
                         
@@ -367,7 +374,32 @@
 
     <script src="assets/js/min.js"></script>
     <script src="assets/js/pp.js"></script>
-
+	<script src="assets/js/plugins/jquery.vmap/jquery.vmap.js"></script>
+    <script src="assets/js/plugins/jquery.vmap/jquery.vmap.france.js"></script>
+	
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('#francemap').vectorMap({
+		    map: 'france_fr',
+			hoverOpacity: 0.3,
+			hoverColor: "#EC0000",
+			backgroundColor: "##0E1623",
+			color: "#E0DEEA",
+			borderColor: "#000000",
+			borderWidth: 2,
+			selectedColor: "#6d28aa",
+			enableZoom: false,
+			showTooltip: true,
+		    onRegionClick: function(element, code, region)
+		    {
+		        var SelectedRegion = region;
+		        $("#step-join-four-sl").val(SelectedRegion);
+				
+		    }
+		});
+	});
+	</script>
+	
     <!-- Script to Activate Formstone Wallpaper jQuery Plugin - Use this script if you want to use an .mp4, .ovg, or .webm video as a background video. -->
     <script>
     $(".video-bg").wallpaper({
