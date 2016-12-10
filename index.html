@@ -186,26 +186,8 @@
                         </ul>
 						
 						<ul class="list-inline step-join-four-sl" style="display: none;">
-								<li><div id="francemap" style="width: 400px; height: 500px;"></div></li>
-								<li><select tabindex="400" id="step-join-four-sl" name="step-join-four-sl">
-										<option value=""></option>
-										<option value="Grand-Est">Alsace-Champagne-Ardennes-Lorraine</option>
-										<option value="Aquitaine-Limousin-Poitou-Charentes">Aquitaine-Limousin-Poitou-Charente</option>
-										<option value="Auvergne-Rhône-Alpes">Auvergne-Rhône-Alpes</option>
-										<option value="Bourgogne-Franche-Comté">Bourgogne-Franche-Comté</option>
-										<option value="Bretagne">Bretagne</option>
-										<option value="Centre">Centre</option>
-										<option value="Corse">Corse</option>
-										<option value="Ile-de-France">Île-de-France</option>
-										<option value="Languedoc-Roussillon-Midi-Pyrénées">Languedoc-Roussillon-Midi-Pyrénées</option>
-										<option value="Nord-Pas-de-Calais-Picardie">Nord-Pas-de-Calais-Picardie</option>
-										<option value="Normandie">Normandie</option>
-										<option value="outre-mer">Outre-Mer</option>
-										<option value="Pays-de-la-Loire">Pays-de-la-Loire</option>
-										<option value="Provence-Alpes-Côte-d-Azur">Provence-Alpes-Côte-d-Azur</option>
-										<option value="section expatriés">Section Expatriés</option>
-								</select></li>
-							</ul>
+							<li><div id="francemap" style="width: 400px; height: 400px;"></div></li>
+						</ul>
                         <ul class="list-inline step-join-four-amount" style="display: none;">
                             <li>Et je lui donne</li>
                             <li><input id="step-join-four-amount" class="text-right"></li>
@@ -382,9 +364,9 @@
 		$('#francemap').vectorMap({
 		    map: 'france_fr',
 			hoverOpacity: 0.3,
-			hoverColor: "#EC0000",
-			backgroundColor: "##0E1623",
-			color: "#E0DEEA",
+			hoverColor: "#ec0000",
+			backgroundColor: "#f4f5f7",
+			color: "#e0deea",
 			borderColor: "#000000",
 			borderWidth: 2,
 			selectedColor: "#6d28aa",
@@ -392,9 +374,7 @@
 			showTooltip: true,
 		    onRegionClick: function(element, code, region)
 		    {
-		        var SelectedRegion = region;
-		        $("#step-join-four-sl").val(SelectedRegion);
-				
+		    	$("#form #slJoin").val(region);
 		    }
 		});
 	});

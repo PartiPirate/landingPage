@@ -48,6 +48,8 @@ function clickJoinDonateMoreOk(event) {
 }
 
 function clickJoinSlNo(event) {
+	$("#form #slJoin").val("");
+
 	$("#form .step-join-four").animate({ left: "-=2000" }, 400, function() {
 		$("#form .step-join-four").hide();
 		showIdentity();
@@ -60,7 +62,7 @@ function clickJoinSlYes(event) {
 }
 
 function clickJoinSlOk(event) {
-	$("#form #slJoin").val($("#form #step-join-four-sl").val());
+//	$("#form #slJoin").val($("#form #step-join-four-sl").val());
 	$("#form #slAmount").val($("#form #step-join-four-amount").val());
 	
 	$("#form .step-join-four").animate({ left: "-=2000" }, 400, function() {
