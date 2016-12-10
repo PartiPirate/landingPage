@@ -361,6 +361,8 @@
 	
 	<script type="text/javascript">
 	$(document).ready(function() {
+//		debugger;
+	
 		$('#francemap').vectorMap({
 		    map: 'france_fr',
 			hoverOpacity: 0.3,
@@ -377,6 +379,9 @@
 		    	$("#form #slJoin").val(region);
 		    }
 		});
+		
+		$("#francemap svg").attr("width", 340).attr("height", 270);
+		$("#francemap").css({"width": "340px", "height": "270px"});
 	});
 	</script>
 	
