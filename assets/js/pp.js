@@ -1,6 +1,39 @@
 var donateUrl = "https://don.partipirate.org";
 var joinUrl = "https://adhesion.partipirate.org";
 
+function updateCart() {
+	var total = 0;
+	
+	$("#cart > div").hide();
+	
+	if ($("#form #type").val() == "join") {
+		total -= -$("#form #joinAmount").val();
+		$("#join-line").show().find("span").text($("#form #joinAmount").val() + "€");
+	}
+
+	if ($("#form #donateAmount").val()) {
+		total -= -$("#form #donateAmount").val();
+		$("#donate-line").show().find("span").text($("#form #donateAmount").val() + "€");
+	}
+
+	if ($("#form #slJoin").val()) {
+		$("#sl-join-line").show().find("span").text($("#form #slJoin").val());
+	}
+
+	if ($("#form #slAmount").val()) {
+		total -= -$("#form #slAmount").val();
+		$("#sl-donate-line").show().find("span").text($("#form #slAmount").val() + "€");
+	}
+
+	$("#total-line").show().find("span").text(total + "€");
+
+	var deduction = Math.floor(total * .66);
+	var cost = total - deduction;
+
+	$("#deduct-line").show().find("span").text(deduction + "€");
+	$("#cost-line").show().find("span").text(cost + "€");
+}
+
 function clickDonateHandler(event) {
 	$("#form #type").val("donate");
 	$("#form .step-one").slideUp();
@@ -20,7 +53,8 @@ function clickJoinHandler(event) {
 
 function clickJoinAmountHandler(amount) {
 	$("#form #joinAmount").val(amount);
-
+	updateCart();
+	
 	$("#form .step-join-two").animate({ left: "-=2000" }, 400, function() {
 		$("#form .step-join-two").hide();
 		$("#form .step-join-three").fadeIn();
@@ -28,6 +62,8 @@ function clickJoinAmountHandler(amount) {
 }
 
 function clickJoinDonateMoreNo(event) {
+	updateCart();
+
 	$("#form .step-join-three").animate({ left: "-=2000" }, 400, function() {
 		$("#form .step-join-three").hide();
 		$("#form .step-join-four").fadeIn();
@@ -40,6 +76,7 @@ function clickJoinDonateMoreYes(event) {
 
 function clickJoinDonateMoreOk(event) {
 	$("#form #donateAmount").val($("#form #step-join-three-amount").val());
+	updateCart();
 
 	$("#form .step-join-three").animate({ left: "-=2000" }, 400, function() {
 		$("#form .step-join-three").hide();
@@ -49,6 +86,7 @@ function clickJoinDonateMoreOk(event) {
 
 function clickJoinSlNo(event) {
 	$("#form #slJoin").val("");
+	updateCart();
 
 	$("#form .step-join-four").animate({ left: "-=2000" }, 400, function() {
 		$("#form .step-join-four").hide();
@@ -64,7 +102,8 @@ function clickJoinSlYes(event) {
 function clickJoinSlOk(event) {
 //	$("#form #slJoin").val($("#form #step-join-four-sl").val());
 	$("#form #slAmount").val($("#form #step-join-four-amount").val());
-	
+	updateCart();
+
 	$("#form .step-join-four").animate({ left: "-=2000" }, 400, function() {
 		$("#form .step-join-four").hide();
 		showIdentity();
