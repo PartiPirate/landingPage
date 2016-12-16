@@ -42,3 +42,21 @@
     0%   {opacity: 1;}
     100% {opacity: 0.3;}
 }
+
+footer a {
+	text-decoration: underline;
+}
+
+.step-one .btn {
+    font-size: 24px;
+}
+
+.step-identity label {
+    text-align: left;
+    display: block;
+}
+
+label .required {
+	color: red;
+	
+}

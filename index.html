@@ -83,10 +83,10 @@
                             <a href="#page-top"></a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#megaform" class="btn-donate">Donner</a>
+                            <a href="#megaform" class="btn-join">Adhérer</a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#megaform" class="btn-join">Adhérer</a>
+                            <a href="#megaform" class="btn-donate">Donner</a>
                         </li>
                     </ul>
                 </div>
@@ -101,7 +101,7 @@
                 <div class="intro-body">
                     <div class="container">
                         <span class="page-scroll">
-                            <a href="#contact" class="btn btn-primary btn-square btn-lg">Donnez, adhérez</a>
+                            <a href="#megaform" class="btn btn-primary btn-square btn-lg">Donnez, adhérez</a>
                         </span>
                         <br>
                         <br>
@@ -169,20 +169,24 @@
                         <h2>Vous voulez ?</h2>
                         <hr class="primary">
                         <ul class="list-inline">
-                            <li><button type="button" class="btn btn-primary btn-square btn-raised btn-donate">Donner</button></li>
                             <li><button type="button" class="btn btn-primary btn-square btn-raised btn-join">Adhérer</button></li>
+                            <li><button type="button" class="btn btn-primary btn-square btn-raised btn-donate">Donner</button></li>
                         </ul>
 					</div>
 
                     <div class="col-lg-12 text-center step-join-two" style="display: none;">
-                        <h2>Vous payez ?</h2>
+                        <h2>Vous souhaitez payer ?</h2>
                         <hr class="primary">
                         <ul class="list-inline">
-                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-24">Plein Tarif - 24€</button></li>
+                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-24">Plein Tarif - 24€</button><br>
+                            	9€ après déduction fiscale
+                            </li>
                             <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-12">Demi Tarif - 12€<br>
-                            	<span style="font-size: smaller;">(étudiant, chômeur)</span></button></li>
+                            	<span style="font-size: smaller;">(étudiant, chômeur)</span></button><br>
+                            	5€ après déduction fiscale</li>
                             <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-6">Tarif Réduit - 6€<br>
-                            	<span style="font-size: smaller;">(personne en difficulté)</span></button></li>
+                            	<span style="font-size: smaller;">(personne en difficulté)</span></button><br>
+                            	3€ après déduction fiscale</li>
                         </ul>
 					</div>
 
@@ -225,12 +229,12 @@
                         
 						<div class="form-group has-feedback">
                                <div class="form-group col-xs-6 floating-label-form-group controls">
-                                   <label>Votre prénom</label>
+                                   <label>Votre prénom<sup class="required">*</sup></label>
                                    <input type="text" class="form-control" placeholder="Votre prénom" id="firstname" name="firstname" required data-validation-required-message="Veuillez entrer votre prénom.">
                                    <p class="help-block text-danger"></p>
                                </div>
                                <div class="form-group col-xs-6 floating-label-form-group controls">
-                                   <label>Votre nom</label>
+                                   <label>Votre nom<sup class="required">*</sup></label>
                                    <input type="text" class="form-control" placeholder="Votre nom" id="lastname" name="lastname" required data-validation-required-message="Veuillez entrer votre nom.">
                                    <p class="help-block text-danger"></p>
                                </div>
@@ -238,7 +242,7 @@
 	
 						<div class="form-group has-feedback">
                                <div class="form-group col-xs-6 floating-label-form-group controls">
-                                   <label>Votre adresse mail</label>
+                                   <label>Votre adresse mail<sup class="required">*</sup></label>
                                    <input type="text" class="form-control" placeholder="Votre adresse mail" id="email" name="email" required data-validation-required-message="Veuillez entrer votre addresse mel.">
                                    <p class="help-block text-danger"></p>
                                </div>
@@ -264,27 +268,34 @@
 	
 						<div class="form-group has-feedback">
                                <div class="form-group col-xs-12 floating-label-form-group controls">
-                                   <label>Votre adresse</label>
+                                   <label>Votre adresse<sup class="required">*</sup></label>
                                    <input type="text" class="form-control" placeholder="Votre adresse" id="address" name="address" required data-validation-required-message="Veuillez entrer votre adresse.">
                                    <p class="help-block text-danger"></p>
                                </div>
 						</div>
 	
 						<div class="form-group has-feedback">
-                               <div class="form-group col-xs-4 floating-label-form-group controls">
-                                   <label>Votre code postal</label>
+                               <div class="form-group col-xs-2 floating-label-form-group controls">
+                                   <label>Votre code postal<sup class="required">*</sup></label>
                                    <input type="text" class="form-control" placeholder="Votre CP" id="zipCode" name="zipCode" data-validation-required-message="Veuillez entrer votre code postal.">
                                    <p class="help-block text-danger"></p>
                                </div>
-                               <div class="form-group col-xs-8 floating-label-form-group controls">
-                                   <label>Votre ville</label>
+                               <div class="form-group col-xs-5 floating-label-form-group controls">
+                                   <label>Votre ville<sup class="required">*</sup></label>
                                    <input type="text" class="form-control" placeholder="Votre ville" id="city" name="city" data-validation-required-message="Veuillez entrer votre ville.">
+                                   <p class="help-block text-danger"></p>
+                               </div>
+                               <div class="form-group col-xs-5 floating-label-form-group controls">
+                                   <label>Votre pays<sup class="required">*</sup></label>
+                                   <input type="text" class="form-control" placeholder="Votre pays" id="country" name="country" data-validation-required-message="Veuillez entrer votre pays." value="France">
                                    <p class="help-block text-danger"></p>
                                </div>
 						</div>
 
+						<label><sup class="required">*</sup> : Champ obligatoire</label>
+
                         <ul class="list-inline">
-                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-identity-ok">On y presque :D</button></li>
+                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-identity-ok">On y est presque :D</button></li>
                         </ul>
                         
                     </div>
