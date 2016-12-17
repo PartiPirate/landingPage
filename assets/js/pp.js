@@ -24,6 +24,17 @@ function updateCart() {
 		total -= -$("#form #slAmount").val();
 		$("#sl-donate-line").show().find("span").text($("#form #slAmount").val() + "€");
 	}
+	
+	if ($("#form #BudgetAmount").val()) {
+		total -= -$("#form #BudgetAmount").val();
+		if ($("#form #Budget").val() == "operation") {
+			$("#donate-budget-line-operation").show().find("span").text($("#form #BudgetAmount").val() + "€");
+		} else if ($("#form #Budget").val() == "Communication") {
+			$("#donate-budget-line-Communication").show().find("span").text($("#form #BudgetAmount").val() + "€");
+		} else if ($("#form #Budget").val() == "Elections") {
+			$("#donate-budget-line-Elections").show().find("span").text($("#form #BudgetAmount").val() + "€");
+		}
+	} 
 
 	$("#total-line").show().find("span").text(total + "€");
 
@@ -108,6 +119,34 @@ function clickJoinDonateMoreOk(event) {
 		$("#form .step-join-four").fadeIn();
 	});
 }
+
+
+function clickDonateBudgetOperation(event) {
+	$("#form .step-Donate-three-amount").fadeIn();
+	$("#form #Budget").val("Operation");
+}
+
+function clickDonateBudgetCommunication(event) {
+	$("#form .step-Donate-three-amount").fadeIn();
+	$("#form #Budget").val("Communication");
+}
+
+function clickDonateBudgetElection(event) {
+	$("#form .step-Donate-three-amount").fadeIn();
+	$("#form #Budget").val("Elections");
+}
+
+function clickDonateBudgetOk(event) {
+	$("#form #BudgetAmount").val($("#form #step-Donate-three-amount").val());
+	updateCart();
+
+	$("#form .step-donate-two").animate({ left: "-=2000" }, 400, function() {
+		$("#form .step-donate-two").hide();
+		$("#form .step-donate-two").css({left: 0});
+		$("#form .step-identity").fadeIn();
+	});
+}
+
 
 function clickJoinSlNo(event) {
 	$("#form #slJoin").val("");
@@ -234,10 +273,14 @@ $(function() {
 	$("body").on("click", ".btn-24", function() { clickJoinAmountHandler(24); });
 	$("body").on("click", ".btn-12", function() { clickJoinAmountHandler(12); });
 	$("body").on("click", ".btn-6",  function() { clickJoinAmountHandler(6); });
+	$("body").on("click", ".operation",  clickDonateBudgetOperation);
+	$("body").on("click", ".communication", clickDonateBudgetCommunication);
+	$("body").on("click", ".election",  clickDonateBudgetElection);
 
 	$("body").on("click", ".btn-join-donate-more-no",  clickJoinDonateMoreNo);
 	$("body").on("click", ".btn-join-donate-more-yes", clickJoinDonateMoreYes);
 	$("body").on("click", ".btn-join-donate-more-ok",  clickJoinDonateMoreOk);
+	$("body").on("click", ".btn-Donate-Budget-ok",  clickDonateBudgetOk);
 
 	$("body").on("click", ".btn-join-sl-no",  clickJoinSlNo);
 	$("body").on("click", ".btn-join-sl-yes", clickJoinSlYes);
@@ -248,7 +291,7 @@ $(function() {
 	$("body").on("click", ".step-join-three .btn-prev",  function(event) { showStep(this, ".step-join-two", event); });
 	$("body").on("click", ".step-join-four .btn-prev",  function(event) { showStep(this, ".step-join-three", event); });
 	$("body").on("click", ".step-disclaimer .btn-prev",  function(event) { showStep(this, ".step-identity", event); });
-//	$("body").on("click", ".step-join-two .btn-prev",  function(event) { showStep(this, ".step-join-one", event); });
+	$("body").on("click", ".step-donate-two .btn-prev",  function(event) { showStep(this, ".step-one", event); });
 	
 	initMaps();
 	initFlag();
