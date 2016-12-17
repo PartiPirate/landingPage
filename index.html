@@ -146,13 +146,13 @@
            		<div id="sl-donate-line" style="display: none;">
 					Don à la section : <span style="float: right;"></span>           			
            		</div>
-				 <div id="donate-budget-line-Operation" style="display: none;">
+				 <div id="donate-budget-line-operation" style="display: none;">
 					Don au budget "Fonctionnement" : <span style="float: right;"></span>           			
            		</div>
-				 <div id="donate-budget-line" style="display: none;">
-					Don au budget "Communication-Communication" : <span style="float: right;"></span>           			
+				 <div id="donate-budget-line-communication" style="display: none;">
+					Don au budget "Communication" : <span style="float: right;"></span>           			
            		</div>
-				 <div id="donate-budget-line-Elections" style="display: none;">
+				 <div id="donate-budget-line-elections" style="display: none;">
 					Don au budget "Elections" : <span style="float: right;"></span>           			
            		</div>
            		<div id="total-line"  style="display: none; font-size: larger;">
@@ -172,8 +172,8 @@
 				<input type="hidden" id="slJoin">
 				<input type="hidden" id="slDonate">
 				<input type="hidden" id="slAmount">
-				<input type="hidden" id="Budget">
-				<input type="hidden" id="BudgetAmount">
+				<input type="hidden" id="budget">
+				<input type="hidden" id="budgetAmount">
             <div class="container">
                 <div class="row" style="min-height: 300px;">
                     <div class="col-lg-12 text-center step step-one" data-scrollreveal="move 0 over 1s">
@@ -210,16 +210,15 @@
                         <hr class="primary">
                         <ul class="list-inline">
                             <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised operation">Le Budget Fonctionnement</button><br>
-                            	Texte ou "en savoir plus ?"
-                            </li>
+                            	Texte ou "en savoir plus ?"</li>
                             <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised communication">Le Budget Communication<br></button><br>
                             	Texte ou "en savoir plus ?"</li>
                             <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised election">Le Budget Elections<br></button><br>
                             	Texte ou "en savoir plus ?"</li>
                         </ul>
-						<ul class="list-inline step step-Donate-three-amount" style="display: none;">
-                            <li><input type="number" id="step-Donate-three-amount" class="text-right" style="width: 100px; height: 57px; margin-top: 0; margin-bottom: 0; padding-right: 5px; font-size: 30px;"> &euro;</li>
-                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-Donate-Budget-ok">Voilà !</button></li>
+						<ul class="list-inline step step-donate-two-amount" style="display: none;">
+                            <li><input type="number" id="step-donate-two-amount" class="text-right" style="width: 100px; height: 57px; margin-top: 0; margin-bottom: 0; padding-right: 5px; font-size: 30px;"> &euro;</li>
+                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-Donate-budget-ok">Voilà !</button></li>
                         </ul>
 					</div>
 
@@ -334,7 +333,7 @@
                         <ul class="list-inline">
                             <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-identity-ok">On y est presque :D</button></li>
                         </ul>
-                        
+
                     </div>
 
                     <div class="col-lg-12 text-center step step-disclaimer" style="display: none;">

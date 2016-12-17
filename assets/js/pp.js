@@ -25,14 +25,16 @@ function updateCart() {
 		$("#sl-donate-line").show().find("span").text($("#form #slAmount").val() + "€");
 	}
 	
-	if ($("#form #BudgetAmount").val()) {
-		total -= -$("#form #BudgetAmount").val();
-		if ($("#form #Budget").val() == "operation") {
-			$("#donate-budget-line-operation").show().find("span").text($("#form #BudgetAmount").val() + "€");
-		} else if ($("#form #Budget").val() == "Communication") {
-			$("#donate-budget-line-Communication").show().find("span").text($("#form #BudgetAmount").val() + "€");
-		} else if ($("#form #Budget").val() == "Elections") {
-			$("#donate-budget-line-Elections").show().find("span").text($("#form #BudgetAmount").val() + "€");
+	if ($("#form #budgetAmount").val()) {
+		total -= -$("#form #budgetAmount").val();
+		if ($("#form #budget").val() == "Operation") {
+			$("#donate-budget-line-operation").show().find("span").text($("#form #budgetAmount").val() + "€");
+		} 
+		else if ($("#form #budget").val() == "Communication") {
+			$("#donate-budget-line-communication").show().find("span").text($("#form #budgetAmount").val() + "€");
+		} 
+		else if ($("#form #budget").val() == "Elections") {
+			$("#donate-budget-line-elections").show().find("span").text($("#form #budgetAmount").val() + "€");
 		}
 	} 
 
@@ -122,22 +124,22 @@ function clickJoinDonateMoreOk(event) {
 
 
 function clickDonateBudgetOperation(event) {
-	$("#form .step-Donate-three-amount").fadeIn();
-	$("#form #Budget").val("Operation");
+	$("#form .step-donate-two-amount").fadeIn();
+	$("#form #budget").val("Operation");
 }
 
 function clickDonateBudgetCommunication(event) {
-	$("#form .step-Donate-three-amount").fadeIn();
-	$("#form #Budget").val("Communication");
+	$("#form .step-donate-two-amount").fadeIn();
+	$("#form #budget").val("Communication");
 }
 
 function clickDonateBudgetElection(event) {
-	$("#form .step-Donate-three-amount").fadeIn();
-	$("#form #Budget").val("Elections");
+	$("#form .step-donate-two-amount").fadeIn();
+	$("#form #budget").val("Elections");
 }
 
 function clickDonateBudgetOk(event) {
-	$("#form #BudgetAmount").val($("#form #step-Donate-three-amount").val());
+	$("#form #budgetAmount").val($("#form #step-donate-two-amount").val());
 	updateCart();
 
 	$("#form .step-donate-two").animate({ left: "-=2000" }, 400, function() {
@@ -280,7 +282,7 @@ $(function() {
 	$("body").on("click", ".btn-join-donate-more-no",  clickJoinDonateMoreNo);
 	$("body").on("click", ".btn-join-donate-more-yes", clickJoinDonateMoreYes);
 	$("body").on("click", ".btn-join-donate-more-ok",  clickJoinDonateMoreOk);
-	$("body").on("click", ".btn-Donate-Budget-ok",  clickDonateBudgetOk);
+	$("body").on("click", ".btn-Donate-budget-ok",  clickDonateBudgetOk);
 
 	$("body").on("click", ".btn-join-sl-no",  clickJoinSlNo);
 	$("body").on("click", ".btn-join-sl-yes", clickJoinSlYes);
