@@ -34,9 +34,28 @@ function updateCart() {
 	$("#cost-line").show().find("span").text(cost + "€");
 }
 
+function showStep(currentLink, step, event) {
+	event.preventDefault();
+	var currentStep = $(currentLink).parents(".step");
+	
+	currentStep.animate({ left: "-=2000" }, 400, function() {
+		currentStep.hide();
+		currentStep.css({left: 0});
+		$("#form " + step).fadeIn();
+	});
+}
+
 function clickDonateHandler(event) {
 	$("#form #type").val("donate");
-	$("#form .step-one").slideUp();
+	$("#form #joinAmount").val("");
+
+	var step = $("#form .step:visible");
+
+	step .animate({ left: "-=2000" }, 400, function() {
+		step .hide();
+		step .css({left: 0});
+		$("#form .step-donate-two").fadeIn();
+	});
 }
 
 function clickJoinHandler(event) {
@@ -45,8 +64,11 @@ function clickJoinHandler(event) {
 //		$("#form .step-join-two").fadeIn();		
 //	});
 
-	$("#form .step-one").animate({ left: "-=2000" }, 400, function() {
-		$("#form .step-one").hide();
+	var step = $("#form .step:visible");
+
+	step .animate({ left: "-=2000" }, 400, function() {
+		step .hide();
+		step .css({left: 0});
 		$("#form .step-join-two").fadeIn();
 	});
 }
@@ -57,6 +79,7 @@ function clickJoinAmountHandler(amount) {
 	
 	$("#form .step-join-two").animate({ left: "-=2000" }, 400, function() {
 		$("#form .step-join-two").hide();
+		$("#form .step-join-two").css({left: 0});
 		$("#form .step-join-three").fadeIn();
 	});
 }
@@ -66,6 +89,7 @@ function clickJoinDonateMoreNo(event) {
 
 	$("#form .step-join-three").animate({ left: "-=2000" }, 400, function() {
 		$("#form .step-join-three").hide();
+		$("#form .step-join-three").css({left: 0});
 		$("#form .step-join-four").fadeIn();
 	});
 }
@@ -80,6 +104,7 @@ function clickJoinDonateMoreOk(event) {
 
 	$("#form .step-join-three").animate({ left: "-=2000" }, 400, function() {
 		$("#form .step-join-three").hide();
+		$("#form .step-join-three").css({left: 0});
 		$("#form .step-join-four").fadeIn();
 	});
 }
@@ -90,6 +115,7 @@ function clickJoinSlNo(event) {
 
 	$("#form .step-join-four").animate({ left: "-=2000" }, 400, function() {
 		$("#form .step-join-four").hide();
+		$("#form .step-join-four").css({left: 0});
 		showIdentity();
 	});
 }
@@ -106,6 +132,7 @@ function clickJoinSlOk(event) {
 
 	$("#form .step-join-four").animate({ left: "-=2000" }, 400, function() {
 		$("#form .step-join-four").hide();
+		$("#form .step-join-four").css({left: 0});
 		showIdentity();
 	});
 }
@@ -117,8 +144,40 @@ function showIdentity() {
 function clickIdentityOk(event) {
 	$("#form .step-identity").animate({ left: "-=2000" }, 400, function() {
 		$("#form .step-identity").hide();
+		$("#form .step-identity").css({left: 0});
 		$("#form .step-disclaimer").fadeIn();
 	});
+}
+
+function initMaps() {
+	$('#join-sl-map').vectorMap({
+	    map: 'france_fr',
+		hoverOpacity: 0.3,
+		hoverColor: "#ec0000",
+		backgroundColor: "#f4f5f7",
+		color: "#e0deea",
+		borderColor: "#000000",
+		borderWidth: 2,
+		selectedColor: "#6d28aa",
+		enableZoom: false,
+		showTooltip: true,
+	    onRegionClick: function(element, code, region)
+	    {
+	    	$("#form #slJoin").val(region);
+	    }
+	});
+	
+	$("#join-sl-map svg").attr("width", 340).attr("height", 270);
+	$("#join-sl-map").css({"width": "340px", "height": "270px"});
+}
+
+function initFlag() {
+    $(".video-bg").wallpaper({
+        source: {
+            mp4: "assets/mp4/Drapeau.mp4",
+            poster: "assets/img/demo-bgs/video-bg-fallback.jpg"
+        }
+    });
 }
 
 $(function() {
@@ -184,6 +243,13 @@ $(function() {
 	$("body").on("click", ".btn-join-sl-yes", clickJoinSlYes);
 	$("body").on("click", ".btn-join-sl-ok",  clickJoinSlOk);
 
-	$("body").on("click", ".btn-identity-ok	",  clickIdentityOk);
+	$("body").on("click", ".btn-identity-ok",  clickIdentityOk);
+	$("body").on("click", ".step-join-two .btn-prev",  function(event) { showStep(this, ".step-one", event); });
+	$("body").on("click", ".step-join-three .btn-prev",  function(event) { showStep(this, ".step-join-two", event); });
+	$("body").on("click", ".step-join-four .btn-prev",  function(event) { showStep(this, ".step-join-three", event); });
+	$("body").on("click", ".step-disclaimer .btn-prev",  function(event) { showStep(this, ".step-identity", event); });
+//	$("body").on("click", ".step-join-two .btn-prev",  function(event) { showStep(this, ".step-join-one", event); });
 	
+	initMaps();
+	initFlag();
 });

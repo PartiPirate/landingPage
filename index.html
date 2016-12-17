@@ -165,7 +165,7 @@
 				<input type="hidden" id="slAmount">
             <div class="container">
                 <div class="row" style="min-height: 300px;">
-                    <div class="col-lg-12 text-center step-one" data-scrollreveal="move 0 over 1s">
+                    <div class="col-lg-12 text-center step step-one" data-scrollreveal="move 0 over 1s">
                         <h2>Vous voulez ?</h2>
                         <hr class="primary">
                         <ul class="list-inline">
@@ -174,8 +174,10 @@
                         </ul>
 					</div>
 
-                    <div class="col-lg-12 text-center step-join-two" style="display: none;">
-                        <h2>Vous souhaitez payer ?</h2>
+                    <div class="col-lg-12 text-center step step-join-two" style="display: none;">
+                        <h2><a href=#step-join-two class="btn-prev">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>&nbsp;Vous souhaitez payer ?</h2>
                         <hr class="primary">
                         <ul class="list-inline">
                             <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-24">Plein Tarif - 24€</button><br>
@@ -190,22 +192,26 @@
                         </ul>
 					</div>
 
-                    <div class="col-lg-12 text-center step-join-three" style="display: none;">
-                        <h2>Vous voulez donner plus ?</h2>
+                    <div class="col-lg-12 text-center step step-join-three" style="display: none;">
+                        <h2><a href=#step-join-two class="btn-prev">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>&nbsp;Vous voulez donner plus ?</h2>
                         <hr class="primary">
                         <ul class="list-inline">
                             <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-join-donate-more-yes">Oui</button></li>
                             <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-join-donate-more-no">Non</button></li>
                         </ul>
 
-                        <ul class="list-inline step-join-three-amount" style="display: none;">
-                            <li><input id="step-join-three-amount" class="text-right" style="width: 100px; height: 57px; margin-top: 0; margin-bottom: 0; padding-right: 5px; font-size: 30px;"> &euro;</li>
+                        <ul class="list-inline step step-join-three-amount" style="display: none;">
+                            <li><input type="number" id="step-join-three-amount" class="text-right" style="width: 100px; height: 57px; margin-top: 0; margin-bottom: 0; padding-right: 5px; font-size: 30px;"> &euro;</li>
                             <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-join-donate-more-ok">Voilà !</button></li>
                         </ul>
 					</div>
 
-                    <div class="col-lg-12 text-center step-join-four" style="display: none;">
-                        <h2>Vous voulez rejoindre une section locale ?</h2>
+                    <div class="col-lg-12 text-center step step-join-four" style="display: none;">
+                        <h2><a href=#step-join-two class="btn-prev">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>&nbsp;Vous voulez rejoindre une section locale ?</h2>
                         <hr class="primary">
                         <ul class="list-inline">
                             <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-join-sl-yes">Oui</button></li>
@@ -213,16 +219,16 @@
                         </ul>
 						
 						<ul class="list-inline step-join-four-sl" style="display: none;">
-							<li><div id="francemap" style="width: 400px; height: 400px;"></div></li>
+							<li><div id="join-sl-map" style="width: 400px; height: 400px;"></div></li>
 						</ul>
                         <ul class="list-inline step-join-four-amount" style="display: none;">
                             <li>Et je lui donne</li>
-                            <li><input id="step-join-four-amount" class="text-right" style="width: 100px; height: 57px; margin-top: 0; margin-bottom: 0; padding-right: 5px; font-size: 30px;"> &euro;</li>
+                            <li><input type="number" id="step-join-four-amount" class="text-right" style="width: 100px; height: 57px; margin-top: 0; margin-bottom: 0; padding-right: 5px; font-size: 30px;"> &euro;</li>
                             <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-join-sl-ok">J'y fonce !</button></li>
                         </ul>
 					</div>
 
-                    <div class="col-lg-12 text-center step-identity" style="display: none;">
+                    <div class="col-lg-12 text-center step step-identity" style="display: none;">
 						
                         <h2>Oups, et vous êtes ? (Le pape et j'attends ma soeur)</h2>
                         <hr class="primary">
@@ -300,8 +306,10 @@
                         
                     </div>
 
-                    <div class="col-lg-12 text-center step-disclaimer" style="display: none;">
-                        <h2>Attention point légal</h2>
+                    <div class="col-lg-12 text-center step step-disclaimer" style="display: none;">
+                        <h2><a href=#step-identity" class="btn-prev">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>&nbsp;Attention point légal</h2>
                         <hr class="primary">
                         <div class="text-left">
 							Je certifie sur l'honneur que :<br>
@@ -389,45 +397,9 @@
 	</div>
 
     <script src="assets/js/min.js"></script>
-    <script src="assets/js/pp.js"></script>
 	<script src="assets/js/plugins/jquery.vmap/jquery.vmap.js"></script>
     <script src="assets/js/plugins/jquery.vmap/jquery.vmap.france.js"></script>
-	
-	<script type="text/javascript">
-	$(document).ready(function() {
-//		debugger;
-	
-		$('#francemap').vectorMap({
-		    map: 'france_fr',
-			hoverOpacity: 0.3,
-			hoverColor: "#ec0000",
-			backgroundColor: "#f4f5f7",
-			color: "#e0deea",
-			borderColor: "#000000",
-			borderWidth: 2,
-			selectedColor: "#6d28aa",
-			enableZoom: false,
-			showTooltip: true,
-		    onRegionClick: function(element, code, region)
-		    {
-		    	$("#form #slJoin").val(region);
-		    }
-		});
-		
-		$("#francemap svg").attr("width", 340).attr("height", 270);
-		$("#francemap").css({"width": "340px", "height": "270px"});
-	});
-	</script>
-	
-    <!-- Script to Activate Formstone Wallpaper jQuery Plugin - Use this script if you want to use an .mp4, .ovg, or .webm video as a background video. -->
-    <script>
-    $(".video-bg").wallpaper({
-        source: {
-            mp4: "assets/mp4/Drapeau.mp4",
-            poster: "assets/img/demo-bgs/video-bg-fallback.jpg"
-        }
-    });
-    </script>
+    <script src="assets/js/pp.js"></script>
 
 </body>
 
