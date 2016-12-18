@@ -78,7 +78,7 @@ function updateCart() {
 		else if ($("#form #budget").val() == "Communication") {
 			$("#donate-budget-line-communication").show().find("span").text($("#form #budgetAmount").val() + "€");
 		} 
-		else if ($("#form #budget").val() == "Elections") {
+		else if ($("#form #budget").val() == "Election") {
 			$("#donate-budget-line-elections").show().find("span").text($("#form #budgetAmount").val() + "€");
 		}
 	} 
@@ -171,6 +171,8 @@ function clickJoinDonateMoreOk(event) {
 function clickDonateBudgetOperation(event) {
 	$("#form .step-donate-two-amount").fadeIn();
 	$("#form #budget").val("Operation");
+	$("#form .budget-comment").hide();
+	$("#form .operation-comment").css({"display": "inline-block"});
 	$("#form .btn-type-donate").removeClass("active");
 	$(this).addClass("active");
 }
@@ -178,13 +180,17 @@ function clickDonateBudgetOperation(event) {
 function clickDonateBudgetCommunication(event) {
 	$("#form .step-donate-two-amount").fadeIn();
 	$("#form #budget").val("Communication");
+	$("#form .budget-comment").hide();
+	$("#form .communication-comment").css({"display": "inline-block"});
 	$("#form .btn-type-donate").removeClass("active");
 	$(this).addClass("active");
 }
 
 function clickDonateBudgetElection(event) {
 	$("#form .step-donate-two-amount").fadeIn();
-	$("#form #budget").val("Elections");
+	$("#form #budget").val("Election");
+	$("#form .budget-comment").hide();
+	$("#form .election-comment").css({"display": "inline-block"});
 	$("#form .btn-type-donate").removeClass("active");
 	$(this).addClass("active");
 }
