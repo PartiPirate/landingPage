@@ -88,6 +88,25 @@
                         <li class="page-scroll">
                             <a href="#megaform" class="btn-donate">Donner</a>
                         </li>
+						<li class="dropdown page-scroll">
+							<a style="display: inline-block; width: 135px; text-align: right; margin-top: -2px;" id="total-line" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+								<span style="display: inline-block; width: 60px; text-align: right;"></span>
+								<i class="glyphicon glyphicon-shopping-cart"></i> 
+								<i class="caret" style="display: none;"></i>
+							</a>
+							<ul class="dropdown-menu" id="cart">
+								<li id="join-line" 							style="display: none;"><a href="#">Adhésion : <span style="float: right;"></span></a></li>
+								<li id="donate-line" 						style="display: none;"><a href="#">Don : <span style="float: right;"></span></a></li>
+								<li id="sl-join-line" 						style="display: none;"><a href="#">Adhésion à une section locale : <span style="float: right;"></span></a></li>
+								<li id="sl-donate-line" 					style="display: none;"><a href="#">Don à la section : <span style="float: right;"></span></a></li>
+								<li id="donate-budget-line-operation" 		style="display: none;"><a href="#">Don au budget &laquo;Fonctionnement&raquo; : <span style="float: right;"></span></a></li>
+								<li id="donate-budget-line-communication" 	style="display: none;"><a href="#">Don au budget &laquo;Communication&raquo; : <span style="float: right;"></span></a></li>
+								<li id="donate-budget-line-elections"	 	style="display: none;"><a href="#">Don au budget &laquo;Elections&raquo; : <span style="float: right;"></span></a></li>
+								<li role="separator" class="divider"></li>
+								<li id="deduct-line" 						style="display: none;"><a href="#">Déduction fiscale : <span style="float: right;"></span></a></li>
+								<li id="cost-line" 							style="display: none;"><a href="#">Coût : <span style="float: right;"></span></a></li>
+							</ul>
+						</li>                        	
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -133,38 +152,6 @@
         </header>
 
 		<section id="megaform" class="megaform-1">
-           	<div id="cart" style="float: right; width: 275px; margin-right: 20px;">
-           		<div id="join-line" style="display: none;">
-					Adhésion : <span style="float: right;"></span>           			
-           		</div>
-           		<div id="donate-line" style="display: none;">
-					Don : <span style="float: right;"></span>           			
-           		</div>
-           		<div id="sl-join-line" style="display: none;">
-					Adhésion à une section locale : <span style="float: right;"></span>           			
-           		</div>
-           		<div id="sl-donate-line" style="display: none;">
-					Don à la section : <span style="float: right;"></span>           			
-           		</div>
-				 <div id="donate-budget-line-operation" style="display: none;">
-					Don au budget "Fonctionnement" : <span style="float: right;"></span>           			
-           		</div>
-				 <div id="donate-budget-line-communication" style="display: none;">
-					Don au budget "Communication" : <span style="float: right;"></span>           			
-           		</div>
-				 <div id="donate-budget-line-elections" style="display: none;">
-					Don au budget "Elections" : <span style="float: right;"></span>           			
-           		</div>
-           		<div id="total-line"  style="display: none; font-size: larger;">
-					Total : <span style="float: right;"></span>           			
-           		</div>
-           		<div id="deduct-line"  style="display: none; font-size: larger;">
-					Déduction fiscale : <span style="float: right;"></span>           			
-           		</div>
-           		<div id="cost-line"  style="display: none; font-size: larger;">
-					Coût : <span style="float: right;"></span>           			
-           		</div>
-           	</div>
 			<form id="form">
 				<input type="hidden" id="type">
 				<input type="hidden" id="joinAmount">

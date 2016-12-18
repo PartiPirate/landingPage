@@ -71,3 +71,7 @@ label .required {
 	border-color: #d2a922;
 }
 
+.dropdown-menu {
+	background-color: #000000;
+	min-width: 245px;	
+}

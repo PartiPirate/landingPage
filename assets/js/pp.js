@@ -49,7 +49,7 @@ function isCompleteFormHandler(event) {
 function updateCart() {
 	var total = 0;
 	
-	$("#cart > div").hide();
+	$("#cart > li").hide();
 	
 	if ($("#form #type").val() == "join") {
 		total -= -$("#form #joinAmount").val();
@@ -90,6 +90,15 @@ function updateCart() {
 
 	$("#deduct-line").show().find("span").text(deduction + "€");
 	$("#cost-line").show().find("span").text(cost + "€");
+	
+	if (total == 0) {
+		$("#total-line .caret").hide();
+		$("#cart .divider").hide();
+	}
+	else {
+		$("#total-line .caret").show();
+		$("#cart .divider").show();
+	}
 }
 
 function showStep(currentLink, step, event) {
