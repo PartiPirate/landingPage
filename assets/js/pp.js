@@ -1,6 +1,51 @@
 var donateUrl = "https://don.partipirate.org";
 var joinUrl = "https://adhesion.partipirate.org";
 
+function isCompleteFormHandler(event) {
+	event.preventDefault();
+
+	var isOk = true;
+
+	var form = {iCertify: true};
+	
+	if ($("#form #joinAmount").val()) {
+		form["costRadio"] = $("#form #joinAmount").val();
+		form["donation"] = $("#form #donateAmount").val();
+	}
+	else {
+		form["donation"] = $("#form #budgetAmount").val();
+	}
+	form["localSection"] = $("#form #slJoin").val().toLowerCase();
+	form["localDonation"] = $("#form #slAmount").val();
+	form["comment"] = $("#form #budget").val();
+	
+	form["firstname"] = $("#form #firstname").val();
+	form["lastname"] = $("#form #lastname").val();
+	form["email"] = $("#form #email").val();
+	form["address"] = $("#form #firstname").val();
+	form["zipcode"] = $("#form #zipCode").val();
+	form["city"] = $("#form #city").val();
+	form["country"] = $("#form #country").val();
+	
+	form["telephone"] = $("#form #telephone").val();
+
+	form["pseudo"] = $("#form #pseudo").val();
+
+	if (isOk) {
+		$.post("do_setPaymentForm.php", form, function(data) {
+			try {
+				var jsonData = $.parseJSON(data);
+				alert(jsonData.message);
+			}
+			catch(error) {
+				// Il n'y a pas d'erreur
+				$("body").append($(data));
+				$("#payboxForm").submit();
+			}
+		}, "html");
+	}
+}
+
 function updateCart() {
 	var total = 0;
 	
@@ -294,12 +339,15 @@ $(function() {
 	$("body").on("click", ".btn-join-sl-yes", clickJoinSlYes);
 	$("body").on("click", ".btn-join-sl-ok",  clickJoinSlOk);
 
-	$("body").on("click", ".btn-identity-ok",  clickIdentityOk);
+	$("body").on("click", ".btn-identity-ok", clickIdentityOk);
 	$("body").on("click", ".step-join-two .btn-prev",  function(event) { showStep(this, ".step-one", event); });
 	$("body").on("click", ".step-join-three .btn-prev",  function(event) { showStep(this, ".step-join-two", event); });
 	$("body").on("click", ".step-join-four .btn-prev",  function(event) { showStep(this, ".step-join-three", event); });
 	$("body").on("click", ".step-disclaimer .btn-prev",  function(event) { showStep(this, ".step-identity", event); });
 	$("body").on("click", ".step-donate-two .btn-prev",  function(event) { showStep(this, ".step-one", event); });
+	
+	$("body").on("click", ".btn-disclaimer-ok", isCompleteFormHandler);
+	
 	
 	initMaps();
 	initFlag();
