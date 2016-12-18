@@ -71,7 +71,22 @@ label .required {
 	border-color: #d2a922;
 }
 
-.dropdown-menu {
-	background-color: #000000;
-	min-width: 245px;	
+@media (min-width: 767px) {
+	.dropdown-menu {
+		background-color: #000000;
+		min-width: 245px;	
+	}
+
+	.dropdown > a {
+		display: inline-block; 
+		width: 135px; 
+		margin-top: -2px;
+	}
+
+	.dropdown > a > span {
+		display: inline-block; 
+		width: 60px; 
+		text-align: right; 
+	}
+
 }
