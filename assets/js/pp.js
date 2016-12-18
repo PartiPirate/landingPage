@@ -22,7 +22,7 @@ function isCompleteFormHandler(event) {
 	form["firstname"] = $("#form #firstname").val();
 	form["lastname"] = $("#form #lastname").val();
 	form["email"] = $("#form #email").val();
-	form["address"] = $("#form #firstname").val();
+	form["address"] = $("#form #address").val();
 	form["zipcode"] = $("#form #zipCode").val();
 	form["city"] = $("#form #city").val();
 	form["country"] = $("#form #country").val();

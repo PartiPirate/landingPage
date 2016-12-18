@@ -90,3 +90,9 @@ label .required {
 	}
 
 }
+
+@media (max-width: 768px) {
+	#gap {
+		display: none;
+	}
+}
