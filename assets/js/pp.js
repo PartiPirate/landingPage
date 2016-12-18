@@ -126,16 +126,22 @@ function clickJoinDonateMoreOk(event) {
 function clickDonateBudgetOperation(event) {
 	$("#form .step-donate-two-amount").fadeIn();
 	$("#form #budget").val("Operation");
+	$("#form .btn-type-donate").removeClass("active");
+	$(this).addClass("active");
 }
 
 function clickDonateBudgetCommunication(event) {
 	$("#form .step-donate-two-amount").fadeIn();
 	$("#form #budget").val("Communication");
+	$("#form .btn-type-donate").removeClass("active");
+	$(this).addClass("active");
 }
 
 function clickDonateBudgetElection(event) {
 	$("#form .step-donate-two-amount").fadeIn();
 	$("#form #budget").val("Elections");
+	$("#form .btn-type-donate").removeClass("active");
+	$(this).addClass("active");
 }
 
 function clickDonateBudgetOk(event) {

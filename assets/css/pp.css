@@ -60,3 +60,14 @@ label .required {
 	color: red;
 	
 }
+
+.btn-primary.active {
+	background-color: #e6c865;
+	border-color: #e2c04f;
+}
+
+.btn-primary.active:hover {
+	background-color: #e0bb42;
+	border-color: #d2a922;
+}
+
