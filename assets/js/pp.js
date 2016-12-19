@@ -1,6 +1,17 @@
 var donateUrl = "https://don.partipirate.org";
 var joinUrl = "https://adhesion.partipirate.org";
 
+function getProjectId(projectType) {
+	if ($("#form #budget").val() == "Election") {
+		return 5;
+	} 
+	else if ($("#form #budget").val() == "Communication") {
+		return 4;
+	} 
+
+	return 3;
+}
+
 function isCompleteFormHandler(event) {
 	event.preventDefault();
 
@@ -13,11 +24,14 @@ function isCompleteFormHandler(event) {
 		form["donation"] = $("#form #donateAmount").val();
 	}
 	else {
-		form["donation"] = $("#form #budgetAmount").val();
+		form["donation"] = 0;
+		form["projectId"] = getProjectId($("#form #budget").val());
+		form["projectAdditionalDonation"] = $("#form #budgetAmount").val();
 	}
 	form["localSection"] = $("#form #slJoin").val().toLowerCase();
 	form["localDonation"] = $("#form #slAmount").val();
-	form["comment"] = $("#form #budget").val();
+	form["comment"] = "";
+//	form["comment"] = $("#form #budget").val();
 	
 	form["firstname"] = $("#form #firstname").val();
 	form["lastname"] = $("#form #lastname").val();
