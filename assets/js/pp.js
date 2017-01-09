@@ -44,6 +44,7 @@ function isCompleteFormHandler(event) {
 	form["telephone"] = $("#form #telephone").val();
 
 	form["pseudo"] = $("#form #pseudo").val();
+	form["rejoin"] = $("#form #rejoin").val();
 
 	if (isOk) {
 		$.post("do_setPaymentForm.php", form, function(data) {

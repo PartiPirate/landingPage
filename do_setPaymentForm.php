@@ -79,6 +79,9 @@ if (isset($_REQUEST["projectId"]) && $_REQUEST["projectId"]) {
 	$purpose["project"]["donation"] = str_replace(",", ".", $_REQUEST["projectDonation"]);
 	$purpose["project"]["additionalDonation"] = str_replace(",", ".", $_REQUEST["projectAdditionalDonation"]);
 }
+if (isset($_REQUEST["rejoin"]) && $_REQUEST["rejoin"] == "true") {
+	$purpose["rejoin"] = true;
+}
 
 $transaction = array();
 $transaction["tra_amount"] = $amount;

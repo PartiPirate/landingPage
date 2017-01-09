@@ -272,6 +272,7 @@ else {
                         <h2>Et vous êtes ?</h2>
                         <hr class="primary">
 						<div class="form-group has-feedback">
+							<input type="hidden" id="rejoin" name="rejoin" value="<?php echo ($rejoin ? "true" : "false");?>">
                                <div class="form-group col-xs-12 col-md-6 floating-label-form-group controls">
                                    <label>Votre prénom<sup class="required">*</sup></label>
                                    <input type="text" class="form-control" placeholder="Votre prénom" id="firstname" name="firstname"

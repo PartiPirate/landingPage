@@ -46,7 +46,7 @@ if (isset($purpose["join"])) {
 	$mailMessage .= "Référence adhésion : " . $transaction["tra_reference"] . "\n";
 	$mailMessage .= "Email adhérent : " . $transaction["tra_email"] . "\n";
 
-	if (!$transaction["tra_lastname"]) {
+	if (isset($purpose["rejoin"])) {
 		$subject = "[PartiPirate] Une réadhésion";
 	}
 	else {
