@@ -198,15 +198,12 @@ else {
                             </a>&nbsp;Vous souhaitez adhérer ?</h2>
                         <hr class="primary">
                         <ul class="list-inline">
-                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-24">Plein Tarif - 24€</button><br>
-                            	9€ après déduction fiscale
+                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-24">Plein Tarif - 30€</button><br>
+                            	10€ après déduction fiscale
                             </li>
-                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-12">Demi Tarif - 12€<br>
-                            	<span style="font-size: smaller;">(étudiant, chômeur)</span></button><br>
+                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-12">Demi Tarif - 15€<br>
+                            	<span style="font-size: smaller;">(étudiant, chômeur, personne en difficulté)</span></button><br>
                             	5€ après déduction fiscale</li>
-                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-6">Tarif Réduit - 6€<br>
-                            	<span style="font-size: smaller;">(personne en difficulté)</span></button><br>
-                            	3€ après déduction fiscale</li>
                         </ul>
 					</div>
 					
