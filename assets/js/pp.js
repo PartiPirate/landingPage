@@ -1,3 +1,5 @@
+/* global $ */
+
 var donateUrl = "https://don.partipirate.org";
 var joinUrl = "https://adhesion.partipirate.org";
 
@@ -100,7 +102,7 @@ function updateCart() {
 
 	$("#total-line").show().find("span").text(total + "€");
 
-	var deduction = Math.floor(total * .66);
+	var deduction = Math.round(total * .66);
 	var cost = total - deduction;
 
 	$("#deduct-line").show().find("span").text(deduction + "€");
@@ -167,12 +169,14 @@ function clickJoinAmountHandler(amount) {
 }
 
 function clickJoinDonateMoreNo(event) {
+	$("#form #slJoin").val("");
 	updateCart();
 
 	$("#form .step-join-three").animate({ left: "-=2000" }, 400, function() {
 		$("#form .step-join-three").hide();
 		$("#form .step-join-three").css({left: 0});
-		$("#form .step-join-four").fadeIn();
+//		$("#form .step-join-four").fadeIn();
+		showIdentity();
 	});
 }
 
@@ -182,12 +186,14 @@ function clickJoinDonateMoreYes(event) {
 
 function clickJoinDonateMoreOk(event) {
 	$("#form #donateAmount").val($("#form #step-join-three-amount").val());
+	$("#form #slJoin").val("");
 	updateCart();
 
 	$("#form .step-join-three").animate({ left: "-=2000" }, 400, function() {
 		$("#form .step-join-three").hide();
 		$("#form .step-join-three").css({left: 0});
-		$("#form .step-join-four").fadeIn();
+		showIdentity();
+//		$("#form .step-join-four").fadeIn();
 	});
 }
 
@@ -272,6 +278,8 @@ function clickIdentityOk(event) {
 }
 
 function initMaps() {
+	if ($('#join-sl-map').length == 0) return;
+	
 	$('#join-sl-map').vectorMap({
 	    map: 'france_fr',
 		hoverOpacity: 0.3,
@@ -353,9 +361,9 @@ $(function() {
 	
 	$("body").on("click", ".btn-donate", clickDonateHandler);
 	$("body").on("click", ".btn-join", clickJoinHandler);
-	$("body").on("click", ".btn-24", function() { clickJoinAmountHandler(24); });
-	$("body").on("click", ".btn-12", function() { clickJoinAmountHandler(12); });
-	$("body").on("click", ".btn-6",  function() { clickJoinAmountHandler(6); });
+	$("body").on("click", ".btn-24", function() { clickJoinAmountHandler(30); });
+	$("body").on("click", ".btn-12", function() { clickJoinAmountHandler(15); });
+	$("body").on("click", ".btn-6",  function() { clickJoinAmountHandler(15); });
 	$("body").on("click", ".operation",  clickDonateBudgetOperation);
 	$("body").on("click", ".communication", clickDonateBudgetCommunication);
 	$("body").on("click", ".election",  clickDonateBudgetElection);
