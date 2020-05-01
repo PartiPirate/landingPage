@@ -1,32 +1,64 @@
 <!DOCTYPE html>
 <html lang="fr">
+<?php
+
+include_once("config/database.php");
+require_once("engine/bo/GaugeBo.php");
+require_once("engine/bo/ProjectBo.php");
+require_once("engine/bo/TransactionBo.php");
+
+$connection = openConnection();
+
+$gaugeBo = GaugeBo::newInstance($connection);
+$projectBo = ProjectBo::newInstance($connection);
+$transactionBo = TransactionBo::newInstance($connection);
+
+$projectId = intval($_REQUEST["id"]);
+$project = $projectBo->getProject($projectId);
+
+if (!$project) {
+	// rajout d'un header location vers donate.php
+	header("Location: index.html");
+	exit();
+}
+
+$gauge = array();
+$gauge["gau_searched_purpose"] = '"project":{"code":"'.$project["pro_code"].'"';
+$gauge["gau_from_date"] = "2015-01-01";
+$gauge["gau_amount_path"] = "join";
+$gauge["gau_amount_goal"] = intval($project["pro_amount_goal"]);
+
+$transactionBo->getGaugeTransactions($gauge);
+GaugeBo::normalize($gauge);
+
+?>
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <meta name="author" content="Parti Pirate">
 
-    <meta name="description" content="Devenez adhérent-e du Parti Pirate ou donnez pour son fonctionnement." />
-    <meta name="keywords" content="don,adhésion,Parti Pirate" />
+    <meta name="description" content="Donnez pour le projet &laquo; <?php echo str_replace("<br>", " - ", $project["pro_label"]); ?> &raquo;" />
+    <meta name="keywords" content="don,Parti Pirate,<?php echo str_replace("<br>", " - ", $project["pro_label"]); ?>" />
     
     <!-- Facebook -->
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://adhesion.partipirate.org/" />
-    <meta property="og:title" content="Parti Pirate - Don/Adhésion" />
-    <meta property="og:description" content="Devenez adhérent-e du Parti Pirate ou donnez pour son fonctionnement." />
-    <meta property="og:image" content="https://adhesion.partipirate.org/assets/img/logo_pp_circle.png" />
+    <meta property="og:url" content="https://don.partipirate.org/project.php?id=<?php echo $projectId; ?>" />
+    <meta property="og:title" content="Parti Pirate - Don pour le projet &laquo; <?php echo str_replace("<br>", " - ", $project["pro_label"]); ?> &raquo;" />
+    <meta property="og:description" content="Donnez pour le projet &laquo; <?php echo str_replace("<br>", " - ", $project["pro_label"]); ?> &raquo;" />
+    <meta property="og:image" content="https://don.partipirate.org/assets/img/logo_pp_circle.png" />
     <!-- Google +1 -->
-    <meta itemprop="name" content="Parti Pirate - Don/Adhésion" />
-    <meta itemprop="description" content="Devenez adhérent-e du Parti Pirate ou donnez pour son fonctionnement." />
-    <meta itemprop="image" content="https://adhesion.partipirate.org/assets/img/logo_pp_circle.png" />
+    <meta itemprop="name" content="Parti Pirate - Don pour le projet &laquo; <?php echo str_replace("<br>", " - ", $project["pro_label"]); ?> &raquo;" />
+    <meta itemprop="description" content="Donnez pour le projet &laquo; <?php echo str_replace("<br>", " - ", $project["pro_label"]); ?> &raquo;" />
+    <meta itemprop="image" content="https://don.partipirate.org/assets/img/logo_pp_circle.png" />
     <!-- Twitter -->
     <meta name="twitter:site" content="@partipirate" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:url" content="https://adhesion.partipirate.org/" />
-    <meta name="twitter:title" content="Parti Pirate - Don/Adhésion" />
-    <meta name="twitter:description" content="Devenez adhérent-e du Parti Pirate ou donnez pour son fonctionnement." />
-    <meta name="twitter:image" content="https://adhesion.partipirate.org/assets/img/logo_pp_circle.png" />
+    <meta name="twitter:url" content="https://don.partipirate.org/project.php?id=<?php echo $projectId; ?>" />
+    <meta name="twitter:title" content="Parti Pirate - Don pour le projet &laquo; <?php echo str_replace("<br>", " - ", $project["pro_label"]); ?> &raquo;" />
+    <meta name="twitter:description" content="Donnez pour le projet &laquo; <?php echo str_replace("<br>", " - ", $project["pro_label"]); ?> &raquo;" />
+    <meta name="twitter:image" content="https://don.partipirate.org/assets/img/logo_pp_circle.png" />
 
-    <title>Parti Pirate - Don/Adhésion</title>
+    <title>Parti Pirate - Don pour le projet &laquo; <?php echo str_replace("<br>", " - ", $project["pro_label"]); ?> &raquo;</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="assets/css/bootstrap/bootstrap.min.css" rel="stylesheet" type="text/css">
@@ -49,10 +81,19 @@
     <link href="assets/css/plugins/jquery.fs.wallpaper/jquery.fs.wallpaper.css" rel="stylesheet">
     <link href="assets/css/plugins/magnific-popup/magnific-popup.css" rel="stylesheet">
 	
+    <!--
+    <?php print_r($project); ?>
+    -->
+
 
     <!-- Spectrum CSS -->
     <!-- Note: spectrum.css is the default blue theme. To use another theme, uncomment the one you want and delete the rest, including the default spectrum.css! -->
-    <link href="assets/css/spectrum-purple.css" rel="stylesheet">
+    <?php   if (isset($project["pro_spectrum"]) && $project["pro_spectrum"]) { ?>        
+    <link href="assets/css/spectrum-<?=$project["pro_spectrum"]?>.css" rel="stylesheet">
+    <?php   } else { ?>        
+    <link href="assets/css/spectrum.css" rel="stylesheet">
+    <?php   } ?>
+    
     <link href="assets/css/pp.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -103,8 +144,24 @@
                             <a href="#page-top"></a>
                         </li>
                         <li class="page-scroll">
-                            <a href="#megaform" class="btn-join">Adhérer</a>
+                            <a href="#megaform" class="btn-donate">
+                            <?php 
+                                $amount = $gauge["gau_amount"]; 
+                                $numberOfTransactions = $gauge["gau_number_of_transactions"];
+
+                                if(isset($project["pro_offset_amount"])) {
+                                    $amount += $project["pro_offset_amount"];
+                                }
+
+                                if(isset($project["pro_offset_number_of_transactions"])) {
+                                    $numberOfTransactions += $project["pro_offset_number_of_transactions"];
+                                }
+                            ?>
+                			<?php echo number_format($amount, 0) . " &euro; / " .  number_format($gauge["gau_amount_goal"], 0) . " &euro;"; ?> - 
+                			<?php echo $numberOfTransactions; ?> don<?php echo ($numberOfTransactions > 1 ? "s" : ""); ?>
+                			</a>
                         </li>
+                        <?php if ($project["pro_status"] == "open") { ?>
                         <li class="page-scroll">
                             <a href="#megaform" class="btn-donate">Donner</a>
                         </li>
@@ -115,18 +172,13 @@
 								<i class="caret" style="display: none;"></i>
 							</a>
 							<ul class="dropdown-menu" id="cart">
-								<li id="join-line" 							style="display: none;"><a href="#">Adhésion : <span style="float: right;"></span></a></li>
-								<li id="donate-line" 						style="display: none;"><a href="#">Don : <span style="float: right;"></span></a></li>
-								<li id="sl-join-line" 						style="display: none;"><a href="#">Adhésion à une section locale : <span style="float: right;"></span></a></li>
-								<li id="sl-donate-line" 					style="display: none;"><a href="#">Don à la section : <span style="float: right;"></span></a></li>
-								<li id="donate-budget-line-operation" 		style="display: none;"><a href="#">Don au budget &laquo;Fonctionnement&raquo; : <span style="float: right;"></span></a></li>
-								<li id="donate-budget-line-communication" 	style="display: none;"><a href="#">Don au budget &laquo;Communication&raquo; : <span style="float: right;"></span></a></li>
-								<li id="donate-budget-line-elections"	 	style="display: none;"><a href="#">Don au budget &laquo;Elections&raquo; : <span style="float: right;"></span></a></li>
+								<li id="donate-line" 						style="display: none;"><a href="#">Don pour le projet &laquo; <?php echo $project["pro_label"] ?> &raquo; : <span style="float: right;"></span></a></li>
 								<li role="separator" class="divider"></li>
 								<li id="deduct-line" 						style="display: none;"><a href="#">Déduction fiscale : <span style="float: right;"></span></a></li>
 								<li id="cost-line" 							style="display: none;"><a href="#">Coût : <span style="float: right;"></span></a></li>
 							</ul>
-						</li>                        	
+						</li>
+						<?php } ?>
                     </ul>
                 </div>
                 <!-- /.navbar-collapse -->
@@ -140,7 +192,7 @@
                 <div class="intro-body">
                     <div class="container">
                         <span class="page-scroll">
-                            <a href="#megaform" class="btn btn-primary btn-square btn-lg">Donnez, adhérez</a>
+                            <a href="#megaform" class="btn btn-primary btn-square btn-lg">Donnez pour le projet &laquo; <?php echo $project["pro_label"] ?> &raquo;</a>
                         </span>
                         <br>
                         <br>
@@ -178,100 +230,49 @@
 				<input type="hidden" id="donateAmount">
 				<input type="hidden" id="slJoin">
 				<input type="hidden" id="slAmount">
-				<input type="hidden" id="budget">
+				<input type="hidden" id="budget" value="<?php echo $project["pro_id"]; ?>">
 				<input type="hidden" id="budgetAmount">
             <div class="container">
                 <div class="row" style="min-height: 300px;">
-                    <div class="col-lg-12 text-center step step-one" data-scrollreveal="move 0 over 1s">
-                        <h2>Vous voulez ?</h2>
-                        <hr class="primary">
-                        <ul class="list-inline">
-                            <li><button type="button" class="btn btn-primary btn-square btn-raised btn-join">Adhérer</button></li>
-                            <li><button type="button" class="btn btn-primary btn-square btn-raised btn-donate">Donner</button></li>
-                        </ul>
-					</div>
 
-                    <div class="col-lg-12 text-center step step-join-two" style="display: none;">
-                        <h2><a href=#step-join-two class="btn-prev">
-                                <i class="fa fa-angle-double-left"></i>
-                            </a>&nbsp;Vous souhaitez adhérer ?</h2>
+                    <div class="col-lg-12 text-center step step-join-two">
+                        <h2>&nbsp;Qu'est-ce que le projet &laquo; <?php echo $project["pro_label"] ?> &raquo; ?</h2>
                         <hr class="primary">
+                    	<p class="text-left"><?php
+
+                        	$content = $project["pro_content"];
+                        	$content = explode("\n", $content);
+                        	$content = implode("</p><p class=\"text-left\">", $content);
+                        	$content = str_replace("<p class=\"text-left\"></p>", "", $content);
+                        
+                        	echo $content; ?></p>
+
                         <ul class="list-inline">
-                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-24">Plein Tarif - 30€</button><br>
-                            	10€ après déduction fiscale
-                            </li>
-                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-12">Demi Tarif - 15€<br>
-                            	<span style="font-size: smaller;">(étudiant, chômeur, personne en difficulté)</span></button><br>
-                            	5€ après déduction fiscale</li>
+                            <?php if ($project["pro_status"] == "open") { ?>
+                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-donate">Donner !</button></li>
+                            <?php } ?>
                         </ul>
 					</div>
 					
-					<div class="col-lg-12 text-center step step-donate-two" style="display: none;">
-                        <h2><a href=#step-donate-two class="btn-prev">
-                                <i class="fa fa-angle-double-left"></i>
-                            </a>&nbsp;Vous souhaitez donner pour ?</h2>
-                        <hr class="primary">
-                        <ul class="list-inline">
-                            <li><button type="button" style="width: 246px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-type-donate operation">Le Budget Fonctionnement</button></li>
-                            <li><button type="button" style="width: 246px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-type-donate communication">Le Budget Communication<br></button></li>
-                            <li><button type="button" style="width: 246px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-type-donate election">Le Budget Elections<br></button></li>
-                        </ul>
-
-                        <div style="display: none; max-width: 768px; min-height: 60px;" class="budget-comment operation-comment">Cet argent permettra de faire vivre le Parti Pirate en couvrant les dépenses courantes et incontournables : l’hébergement de serveurs, le paiement des experts-comptables, la domiciliation, etc. Un pirate a besoin de peu, mais il en a besoin quand même !</div>
-                        <div style="display: none; max-width: 768px; min-height: 60px;" class="budget-comment communication-comment">Pas de secret : pour exister dans le paysage politique, il faut être visible, et cela a un prix ! Imprimer des tracts, des affiches, financer le déplacement des porte-paroles… Le pirate économise en cravate et veste Gucci, mais pas sur le reste !</div>
-                        <div style="display: none; max-width: 768px; min-height: 60px;" class="budget-comment election-comment">Là on rentre dans le cœur de l’action : financer le matériel de campagne, les affiches et les tracts, les clips vidéo et tout le tralala. Les pirates sont prêts pour la bataille, mais il leur faut des armes ! Alors on ne lésine pas…</div>
-                        
-						<ul class="list-inline step step-donate-two-amount" style="display: none;">
-                            <li><input type="number" min="0" max="7500" step="10" id="step-donate-two-amount" class="text-right" style="width: 100px; height: 57px; margin-top: 0; margin-bottom: 0; padding-right: 5px; font-size: 30px;"> &euro;</li>
-                            <li><button type="button" style="width: 226px; height: 57px; margin-top: -11px;" class="btn btn-primary btn-square btn-raised btn-Donate-budget-ok">Voilà !</button></li>
-                        </ul>
-					</div>
-
                     <div class="col-lg-12 text-center step step-join-three" style="display: none;">
                         <h2><a href=#step-join-two class="btn-prev">
                                 <i class="fa fa-angle-double-left"></i>
-                            </a>&nbsp;Vous voulez donner plus ?</h2>
+                            </a>&nbsp;Vous souhaitez donner pour le projet &laquo; <?php echo $project["pro_label"] ?> &raquo; ?</h2>
                         <hr class="primary">
-                        <ul class="list-inline">
-                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-join-donate-more-yes">Oui</button></li>
-                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-join-donate-more-no">Non</button></li>
-                        </ul>
 
                         <ul class="list-inline step step-join-three-amount" style="display: none;">
-                            <li><input type="number" min="0" max="7500" step="10" id="step-join-three-amount" class="text-right" style="width: 100px; height: 57px; margin-top: 0; margin-bottom: 0; padding-right: 5px; font-size: 30px;"> &euro;</li>
+                            <li><input type="number" value="10" min="6" max="7500" step="12" id="step-join-three-amount" class="text-right" style="width: 100px; height: 57px; margin-top: 0; margin-bottom: 0; padding-right: 5px; font-size: 30px;"> &euro;</li>
                             <li><button type="button" style="width: 226px; height: 57px; margin-top: -11px;" class="btn btn-primary btn-square btn-raised btn-join-donate-more-ok">Voilà !</button></li>
-                        </ul>
-					</div>
-
-                    <div class="col-lg-12 text-center step step-join-four" style="display: none;">
-                        <h2><a href=#step-join-two class="btn-prev">
-                                <i class="fa fa-angle-double-left"></i>
-                            </a>&nbsp;Vous voulez rejoindre une section locale ?</h2>
-                        <hr class="primary">
-                        <ul class="list-inline">
-                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-join-sl-yes">Oui</button></li>
-                            <li><button type="button" style="width: 226px; height: 57px;" class="btn btn-primary btn-square btn-raised btn-join-sl-no">Non</button></li>
-                        </ul>
-						
-						<ul class="list-inline step-join-four-sl" style="display: none;">
-							<li><div id="join-sl-map" style="width: 400px; height: 400px;"></div></li>
-						</ul>
-                        <ul class="list-inline step-join-four-amount" style="display: none;">
-                            <li>Et je lui donne</li>
-                            <li><input type="number" min="0" max="7500" step="10" id="step-join-four-amount" class="text-right" style="width: 100px; height: 57px; margin-top: 0; margin-bottom: 0; padding-right: 5px; font-size: 30px;"> &euro;</li>
-                            <li><button type="button" style="width: 226px; height: 57px; margin-top: -11px;" class="btn btn-primary btn-square btn-raised btn-join-sl-ok">J'y fonce !</button></li>
                         </ul>
 					</div>
 
                     <div class="col-lg-12 text-center step step-identity" style="display: none;">
 						
-                        <h2>Et vous êtes ?</h2>
+                        <h2><a href="#step-join-three" class="btn-prev">
+                                <i class="fa fa-angle-double-left"></i>
+                            </a>&nbsp;Et vous êtes ?</h2>
                         <hr class="primary">
-
-                        <div class="text-danger" id="error-div">
-                            
-                        </div>
-
+                        
 						<div class="form-group has-feedback">
                                <div class="form-group col-xs-12 col-md-6 floating-label-form-group controls">
                                    <label>Votre prénom<sup class="required">*</sup></label>
@@ -361,13 +362,11 @@
 							</ul>
 							
 							<div>
-								Outre nos statuts et notre règlement intérieur que vous devrez lire puisque vous vous engagez à vous y conformer, nous vous invitons particulièrement à prendre connaissance de notre déclaration de politique générale et de notre programme avant de remplir votre demande d'adhésion.<br>
-								Les adhésions en tant que personne morale ne sont pas ouvertes.<br>
-								Cette adhésion est valide de date à date.<br>
 								Conformément à l’article 34 de la loi N°78-17 du 6 janvier 1978 dite « Informatique et Libertés », vous disposez d’un droit d’accès, de modification, de rectification, de suppression des données qui vous concernent sur simple demande à secretaires-nationaux@lists.partipirate.org. Le Parti Pirate est une association à but politique régie par la loi du 1er juillet 1901. L’Association de Financement du Parti Pirate, déclarée le 21/04/11 a été agréée le 18/07/11.<br>
-								Voir cette page pour notre politique informatique &amp; Liberté, de confidentialité des données communiquées avant d'adhérer.<br>
+								Voir cette page pour notre politique informatique &amp; Liberté, de confidentialité des données communiquées avant de donner.<br>
 								Vous devez indiquer votre véritable identité car se faire établir et utiliser un reçu-don sous une fausse identité constituerait une fraude fiscale.<br>
-								Votre adhésion vaut pour une année de date à date et vous donne droit à une réduction annuelle d'impôt sur le revenu à hauteur de 66% de son montant, dans la double limite de 20% du revenu imposable et de 15 000 € de dons par foyer fiscal.<br>
+                                <br>								
+								Votre don vous donne droit à une réduction annuelle d'impôt sur le revenu à hauteur de 66% de son montant, dans la double limite de 20% du revenu imposable et de 15 000 € de dons par foyer fiscal.<br>
 								Montant maximal total annuel 7500€ pour les dons consentis et les cotisations versées en qualité d’adhérent d’un ou de plusieurs partis politiques par une personne physique dûment identifiée à une ou plusieurs associations agréées en qualité d’association de financement ou à un ou plusieurs mandataires financiers d’un ou de plusieurs partis politiques, Réf : alinéa 1er de l’article 11-4 de la loi du 11 mars 1988 modifié le 11 octobre 2013.<br>
 							</div>
 						</div>
@@ -439,26 +438,26 @@
 	<div id="volunteerVeil" class="text-center simply-hidden">
 		<img src="assets/img/logo_pp.png" alt="Logo du Parti Pirate">
 	</div>
-    <script>
-//        <!--
 
-const lang = {};
-
-lang["no_firstname"] = "Le champ \"Prénom\" est vide";
-lang["no_lastname"] = "Le champ \"Nom\" est vide";
-lang["no_email_ppo"] = "Le champ \"Adresse mail\" contient un type d'adresse non autorisée";
-lang["no_email"] = "Le champ \"Adresse mail\" est vide";
-lang["no_address"] = "Le champ \"Adresse\" est vide";
-lang["no_zipcode"] = "Le champ \"Code Postal\" est vide";
-lang["no_city"] = "Le champ \"Ville\" est vide";
-lang["no_country"] = "Le champ \"Pays\" est vide";
-
-//        -->
-    </script>
     <script src="assets/js/min.js"></script>
-	<script src="assets/js/plugins/jquery.vmap/jquery.vmap.js"></script>
-    <script src="assets/js/plugins/jquery.vmap/jquery.vmap.france.js"></script>
-    <script src="assets/js/pp.js"></script>
+    <script src="assets/js/donprojet.js"></script>
+    <script>
+<?php   if ($project["pro_background_image"]) { ?>
+        backgroundImage = <?=json_encode($project["pro_background_image"])?>;
+<?php   } ?>        
+    </script>
+<?php
+    if (isset($_REQUEST["skip"])) {
+?>    
+    <script>
+$(function() {
+   $(".btn-donate").click();
+});      
+    </script>
+<?php
+    }
+?>    
+
 
 </body>
 

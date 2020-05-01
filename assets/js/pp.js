@@ -5,13 +5,13 @@ var joinUrl = "https://adhesion.partipirate.org";
 
 function getProjectId(projectType) {
 	if ($("#form #budget").val() == "Election") {
-		return 5;
+		return 143;
 	} 
 	else if ($("#form #budget").val() == "Communication") {
-		return 4;
+		return 142;
 	} 
 
-	return 3;
+	return 141;
 }
 
 function isCompleteFormHandler(event) {
@@ -37,6 +37,8 @@ function isCompleteFormHandler(event) {
 	
 	form["firstname"] = $("#form #firstname").val();
 	form["lastname"] = $("#form #lastname").val();
+	form["nationality"] = $("#form #nationality").val();
+	form["nationalityLabel"] = $("#form #nationalityLabel").val();
 	form["email"] = $("#form #email").val();
 	form["address"] = $("#form #address").val();
 	form["zipcode"] = $("#form #zipCode").val();
@@ -270,11 +272,48 @@ function showIdentity() {
 }
 
 function clickIdentityOk(event) {
-	$("#form .step-identity").animate({ left: "-=2000" }, 400, function() {
-		$("#form .step-identity").hide();
-		$("#form .step-identity").css({left: 0});
-		$("#form .step-disclaimer").fadeIn();
-	});
+	$("#error-div").children().remove();
+
+	const errors = [];
+
+	if (!$("#firstname").val()) {
+		errors.push("no_firstname");
+	}
+	if (!$("#lastname").val()) {
+		errors.push("no_lastname");
+	}
+	if ($("#email").val().indexOf("@partipirate.org") != -1) {
+		errors.push("no_email_ppo");
+	}
+	if (!$("#email").val()) {
+		errors.push("no_email");
+	}
+	if (!$("#address").val()) {
+		errors.push("no_address");
+	}
+	if (!$("#zipCode").val()) {
+		errors.push("no_zipcode");
+	}
+	if (!$("#city").val()) {
+		errors.push("no_city");
+	}
+	if (!$("#country").val()) {
+		errors.push("no_country");
+	}
+
+	if (errors.length) {
+		// there are some errors
+		for(var index = 0; index < errors.length; ++index) {
+			$("#error-div").append("<div>" + lang[errors[index]] + "</div>")
+		}
+	}
+	else {
+		$("#form .step-identity").animate({ left: "-=2000" }, 400, function() {
+			$("#form .step-identity").hide();
+			$("#form .step-identity").css({left: 0});
+			$("#form .step-disclaimer").fadeIn();
+		});
+	}
 }
 
 function initMaps() {
@@ -308,6 +347,28 @@ function initFlag() {
             poster: "assets/img/demo-bgs/video-bg-fallback.jpg"
         }
     });
+}
+
+function initNationalities() {
+	$.get("assets/js/nationalities.json", {}, function(data) {
+		const nationalitySelect = $("#nationality");
+
+		for(let iso in data) {
+			let label = data[iso];
+
+			const option = $("<option />");
+			option.html(label);
+			option.val(iso);
+			
+			nationalitySelect.append(option);
+		}
+
+		nationalitySelect.val("FR").change();
+	}, "json");
+	
+	$("#nationality").change(function() {
+		$("#nationalityLabel").val($("#nationality option:selected").text());
+	});
 }
 
 $(function() {
@@ -385,8 +446,9 @@ $(function() {
 	$("body").on("click", ".step-donate-two .btn-prev",  function(event) { showStep(this, ".step-one", event); });
 	
 	$("body").on("click", ".btn-disclaimer-ok", isCompleteFormHandler);
-	
-	
+
+	initNationalities();
+
 	initMaps();
 	initFlag();
 });

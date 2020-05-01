@@ -91,6 +91,8 @@ $transaction["tra_purpose"] = json_encode($purpose);
 
 if (isset($_REQUEST["firstname"]) && $_REQUEST["firstname"]) $transaction["tra_firstname"] = $_REQUEST["firstname"];
 if (isset($_REQUEST["lastname"]) && $_REQUEST["lastname"]) $transaction["tra_lastname"] = $_REQUEST["lastname"];
+if (isset($_REQUEST["nationality"]) && $_REQUEST["nationality"]) $transaction["tra_nationality_iso"] = $_REQUEST["nationality"];
+if (isset($_REQUEST["nationalityLabel"]) && $_REQUEST["nationalityLabel"]) $transaction["tra_nationality"] = $_REQUEST["nationalityLabel"];
 if (isset($_REQUEST["address"]) && $_REQUEST["address"]) $transaction["tra_address"] = $_REQUEST["address"];
 if (isset($_REQUEST["zipcode"]) && $_REQUEST["zipcode"]) $transaction["tra_zipcode"] = $_REQUEST["zipcode"];
 if (isset($_REQUEST["city"]) && $_REQUEST["city"]) $transaction["tra_city"] = $_REQUEST["city"];
